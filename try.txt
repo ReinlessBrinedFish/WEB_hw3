@@ -1,0 +1,23 @@
+一、
+1、Servlet容器在启动Web应用时创建对象：
+A. 在web.xml文件中配置为需要在Web应用启动时就被初始化的Servlet对象
+C. ServletContext对象
+D. Filter对象
+
+2、不正确：
+A.源组件通过forward进行请求转发前已经生成的响应正文数据仍会正常返回到客户端
+C.HTTP协议规定了请求转发和包含的运作机制
+D.服务器向客户端发送的Cookie数据位于响应正文中
+E.一个Servlet对象可以直接调用另一个Servlet对象的service方法
+
+二、
+1、
+HttpServletRequest：代表客户端的所有请求信息。
+HttpServletResponse：用于实现服务器对客户端的响应。
+Servlet容器中实现Servlet标准的代码实例化而来。
+//参考链接：https://www.zhihu.com/question/52507168/answer/130843353
+
+2、在Web应用运行时对于DemoServlet类会创建多少个对象实例，当多个客户同时发起 /add?inc=100的请求时，请思考变量sum和变量count是否会收到多并发的影响
+一个Servlet同一时刻只有一个实例。 当多个请求发送到同一个Servlet，服务器会为每个请求创建一个新线程来处理。
+sum是实例变量，会收到多并发的影响，因为对于实例变量来说，由于servlet在Tomcat中是以单例模式存在的，所有的线程共享实例变量。多个线程对共享资源的访问就造成了线程不安全问题。
+而count是局部变量，不会受到多并发的影响，因为多线程下每个线程对局部变量都会有自己的一份copy，这样对局部变量的修改只会影响到自己的copy而不会对别的线程产生影响，所以这是线程安全的。
